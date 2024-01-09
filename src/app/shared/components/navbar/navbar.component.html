@@ -1,0 +1,97 @@
+<div
+  class="flex items-center justify-between p-2.5 bg-black text-white font-medium text-base"
+>
+  <div class="flex items-center gap-2">
+    <img src="assets/images/logoEng.png" alt="" class="!w-[65px] !h-[65px]" />
+    <div>Łatwy angielski</div>
+  </div>
+
+  <div class="flex items-center gap-8">
+    <div
+      *ngIf="role === 'LIBRARIAN' || role === 'READER'"
+      class="cursor-pointer"
+      [routerLink]="role === 'READER' ? '/user/books' : '/librarian/books'"
+    >
+      Książki
+    </div>
+    <div
+      *ngIf="role === 'LIBRARIAN'"
+      class="cursor-pointer"
+      [routerLink]="'/librarian/publishers'"
+    >
+      wydawnictwa
+    </div>
+    <div
+      *ngIf="role === 'LIBRARIAN'"
+      class="cursor-pointer"
+      [routerLink]="'/librarian/borrows'"
+    >
+      wypożyczenia
+    </div>
+
+    <div
+      *ngIf="role === 'LIBRARIAN'"
+      class="cursor-pointer"
+      [routerLink]="'/librarian/authors'"
+    >
+      Autorzy
+    </div>
+
+    <div
+      class="cursor-pointer"
+      [routerLink]="'/user/bookings'"
+      *ngIf="role === 'READER'"
+    >
+      Moje wypożyczenia
+    </div>
+    <div
+      class="cursor-pointer"
+      *ngIf="role === 'ADMIN'"
+      routerLink="/admin/users"
+    >
+      Użytkownicy
+    </div>
+  </div>
+
+  <div class="flex items-center gap-2.5">
+    <div>
+      {{ tokenService.getFullName() }}
+      {{ role === "STUDENT" ? "Patryk Grzela" : "Administrator" }}
+    </div>
+
+    <div class="relative">
+      <!-- <div (click)="togglePopover()"></div> -->
+
+      <img
+        (click)="togglePopover()"
+        class="rounded-full w-10 h-10 bg-grey-100 cursor-pointer relative avatar"
+        alt=""
+      />
+
+      <div
+        [ngClass]="{
+        '!block': popoverOpen,
+      }"
+        class="hidden bg-[#0CAFFF] p-2 w-[230px] absolute top-[120%] right-0 rounded-lg"
+      >
+        <div
+          routerLink="/admin/achievements"
+          class="flex items-center gap-2 hover:text-main hover:bg-[#318CE7] font-medium rounded-lg cursor-pointer p-2"
+        >
+          <div class="pt-1">Dyplomy</div>
+        </div>
+        <div
+          class="flex items-center gap-2 hover:text-main hover:bg-[#318CE7] font-medium rounded-lg cursor-pointer p-2"
+        >
+          <div class="pt-1">Edytuj profil</div>
+        </div>
+        <div
+          (click)="logout()"
+          class="flex items-center gap-2 hover:text-main hover:bg-[#318CE7] font-medium rounded-lg cursor-pointer p-2"
+        >
+          <div class="pt-1">Wyloguj</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

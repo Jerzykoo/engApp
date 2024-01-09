@@ -1,0 +1,7 @@
+<ng-template cdk-portal>
+    <div *ngIf="isVisible" @fadeAnimation (@fadeAnimation.done)="!isVisible && close()"
+        class="w-full shadow rounded-lg overflow-y-auto" [class.mt-2]="position === 'bottom'"
+        [class.mb-2]="position === 'top'">
+        <ng-content></ng-content>
+    </div>
+</ng-template>

@@ -1,0 +1,25 @@
+@media screen and (min-width: 1024px) {
+  .gridBigScreen {
+    grid-template-columns: 1fr 550px;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  .resetPassword {
+    margin-bottom: 4px;
+  }
+
+  .signup {
+    margin-bottom: 60px;
+  }
+}
+
+.signup {
+  margin-bottom: 20px;
+}
+
+.bgOnboarding {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

@@ -1,0 +1,26 @@
+<button
+  [disabled]="disabled"
+  class="relative w-full h-full flex items-center justify-center focus:outline-none font-bold rounded-lg"
+  [ngClass]="{
+    'text-white':
+      (variant === 'default' ||
+        variant === 'main' ||
+        variant === 'gray' ||
+        variant === 'red' ||
+        variant === 'orange') &&
+      !disabled,
+    'bg-orange-300': variant === 'orange' && !disabled,
+    'bg-gradient-to-r from-[#FFA500] via-80% to-[#FF6347]':
+      variant === 'default' && !disabled,
+    'bg-main': variant === 'main' && !disabled,
+    'text-main bg-white': variant === 'white' && !disabled,
+    'bg-[#9E9E9E]': variant === 'gray' && !disabled,
+    'bg-[#FF005C]': variant === 'red' && !disabled,
+    'text-xs md:text-sm xl:text-base py-2.5 px-5': size === 'default',
+    'text-xs py-2 px-3': size === 'small',
+  }"
+  [style.minWidth.px]="minWidth"
+>
+  <mat-icon *ngIf="isIcon" [svgIcon]="iconName" class="mr-2.5"></mat-icon>
+  <ng-content></ng-content>
+</button>

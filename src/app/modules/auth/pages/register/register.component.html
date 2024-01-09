@@ -1,0 +1,44 @@
+<div class="mb-4 2xl:mb-8">
+  <div class="flex justify-between items-center mb-2 2xl:mb-5">
+    <h1 class="font-base text-3xl mt-1 2xl:text-4xl leading-[48px] text-main">
+      Welcome to electronic diary
+    </h1>
+  </div>
+
+  <p class="text-[22px] leading-[28px] text-dark">
+    Please sign up to your account
+    <br />
+    and start the adventure
+  </p>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+  <div class="mb-5">
+    <mat-form-field class="w-full">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        formControlName="email"
+        placeholder="Email"
+        value="Sushi"
+      />
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        formControlName="password"
+        placeholder="Password"
+        value="Sushi"
+      />
+    </mat-form-field>
+    <app-button>Sign up</app-button>
+  </div>
+
+  <div
+    class="text-center text-[16px] 2xl:text-lg text-[#2F2F2F] cursor-pointer"
+    routerLink="/auth/login"
+  >
+    Back to login
+  </div>
+</form>

@@ -1,0 +1,18 @@
+<div class="h-screen mx-auto grid grid-cols-1 justify-center lg:grid-cols-2">
+  <div class="hidden lg:block bg-[#F8F8F8]">
+    <div class="h-full">
+      <div class="h-full">
+        <!-- <img [src]="src + '.png'" alt="" class="block 2xl:hidden" />
+        <img [src]="src + '-bigger.png'" alt="" class="hidden 2xl:block" /> -->
+        <img [src]="src" alt="" class="!h-full" />
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="lg:h-screen box-border lg:w-auto p-10 md:p-16 lg:pt-[110px] 2xl:pt-[150px] lg:px-[40px] 2xl:px-[80px]"> -->
+  <div class="box-border lg:w-auto lg:py-[70px] flex items-center">
+    <div class="max-w-[350px] 2xl:max-w-[385px] mx-auto">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

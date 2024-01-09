@@ -1,0 +1,45 @@
+@use "node_modules/@ngneat/hot-toast/src/styles/styles.scss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "~@angular/cdk/overlay-prebuilt.css";
+// @import "~@angular/cdk/overlay-prebuilt.css";
+
+html,
+body {
+  height: 100%;
+  background-color: #ffffff;
+  margin: 0 !important;
+}
+
+body {
+  margin: 0;
+  font-family: "Jones", Roboto, "Helvetica Neue", sans-serif;
+  color: #2f2f2f;
+}
+
+.avatar {
+  background-image: url("assets/images/man.jpg") !important;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.diploma {
+  background-image: url("assets/images/diploma.png") !important;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.lock {
+  background-image: url("assets/images/lock.png") !important;
+  // background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.buttonShadow {
+  box-shadow: 0 0 2px -4px #00000133, 0 5px 5px #0000001f,
+    0 3px 14px 2px #00000017;
+}

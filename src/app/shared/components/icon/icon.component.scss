@@ -1,0 +1,36 @@
+:host {
+  display: inherit;
+}
+
+.icon {
+  line-height: 1;
+  // display: inline-block;
+  background-repeat: no-repeat;
+
+  &-20 {
+    background-size: 20px 20px !important;
+    height: 20px !important;
+    width: 20px !important;
+  }
+  &-25 {
+    background-size: 25px 25px !important;
+    height: 25px !important;
+    width: 25px !important;
+  }
+
+  &-30 {
+    background-size: 30px 30px !important;
+    height: 30px !important;
+    width: 30px !important;
+  }
+
+  &.facebook {
+    background-image: url("/assets/icons/facebook.svg");
+  }
+  &.instagram {
+    background-image: url("/assets/icons/instagram.svg");
+  }
+  &.twitter {
+    background-image: url("/assets/icons/twitter.svg");
+  }
+}

@@ -1,0 +1,45 @@
+<div class="mb-4 2xl:mb-8">
+  <div class="flex justify-between items-center mb-2 2xl:mb-5">
+    <div class="!text-4xl font-medium mt-1 leading-[48px] text-main">
+      Witaj w aplikacji łatwy angielski
+    </div>
+  </div>
+
+  <div class="text-2xl leading-[28px] text-dark">
+    Zaloguj się i zacznij przygodę
+  </div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+  <div class="mb-5">
+    <mat-form-field class="w-full">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Email" />
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        formControlName="password"
+        type="password"
+        placeholder="Password"
+      />
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      class="w-full"
+      [disabled]="form.invalid"
+      color="primary"
+    >
+      Zaloguj
+    </button>
+  </div>
+
+  <!-- <div class="text-center text-[16px] 2xl:text-lg text-[#2F2F2F]">
+    New to our platform?
+    <span class="text-dark cursor-pointer" routerLink="/auth/register"
+      >Create an account</span
+    >
+  </div> -->
+</form>
