@@ -13,7 +13,7 @@ const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       { path: 'users', component: UsersComponent },
       { path: 'achievements', component: AchievementsComponent },
@@ -27,7 +27,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  providers: [],
-  // providers: [NoAuthGuard, AuthGuard],
+  // providers: [],
+  providers: [AuthGuard],
 })
 export class AdminRouter {}

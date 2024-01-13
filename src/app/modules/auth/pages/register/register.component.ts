@@ -19,9 +19,12 @@ export class RegisterComponent {
   public isSubmitting = false;
   public showPasswordScreen = false;
   public form: UntypedFormGroup = this.fb.group({
-    email: [null, [Validators.required, Validators.maxLength(256), email]],
+    email: [
+      'test@gmail.com',
+      [Validators.required, Validators.maxLength(256), email],
+    ],
     password: [
-      null,
+      'Test123!',
       [Validators.required, Validators.maxLength(64), Validators.minLength(8)],
     ],
   });
@@ -41,5 +44,7 @@ export class RegisterComponent {
     //   this.form.markAllAsTouched();
     //   return;
     // }
+
+    this.authService.register(this.form.value);
   }
 }

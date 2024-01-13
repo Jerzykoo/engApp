@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/core/services/api.service';
 import { IUser } from './types';
+import { ConstsService } from 'src/app/core/services/const.service';
 
 @Injectable({ providedIn: 'root' })
 export class AdminService {
@@ -14,8 +15,22 @@ export class AdminService {
     private store: Store,
     private manager: HttpCacheManager,
     private router: Router,
-    private zone: NgZone
+    private zone: NgZone,
+    private constsService: ConstsService
   ) {}
+
+  config: any = {
+    requirements: {
+      secondLevel: 40,
+      thirdLevel: 40,
+    },
+  };
+
+  user = {
+    fullName: 'Patryk Grzela',
+    level: 1,
+    points: 0,
+  };
 
   public getUsers(name?: string): Observable<IUser[]> {
     return this.apiService.get(name ? `/api/user/search=${name}` : `/api/user`);
@@ -31,4 +46,6 @@ export class AdminService {
   public removeUser(id: number): Observable<any> {
     return this.apiService.delete(`/api/user/${id}`);
   }
+
+  getFirstLevelQuiz() {}
 }

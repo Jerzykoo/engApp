@@ -6,6 +6,14 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:8090',
   appName: 'library',
+  firebase: {
+    apiKey: 'AIzaSyBs0PZUlAR0P20Np5Q5C3vei44OBsZc6HA',
+    authDomain: 'engapp-2d0aa.firebaseapp.com',
+    projectId: 'engapp-2d0aa',
+    storageBucket: 'engapp-2d0aa.appspot.com',
+    messagingSenderId: '968924062952',
+    appId: '1:968924062952:web:71d5cb25e8bb8c9c73d55d',
+  },
 };
 
 /*

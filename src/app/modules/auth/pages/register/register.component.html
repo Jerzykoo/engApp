@@ -1,14 +1,12 @@
 <div class="mb-4 2xl:mb-8">
   <div class="flex justify-between items-center mb-2 2xl:mb-5">
     <h1 class="font-base text-3xl mt-1 2xl:text-4xl leading-[48px] text-main">
-      Welcome to electronic diary
+      Witaj w aplikacji łatwy angielski
     </h1>
   </div>
 
   <p class="text-[22px] leading-[28px] text-dark">
-    Please sign up to your account
-    <br />
-    and start the adventure
+    Zarejestruj się i zacznij przygodę
   </p>
 </div>
 
@@ -24,21 +22,29 @@
       />
     </mat-form-field>
     <mat-form-field class="w-full">
-      <mat-label>Password</mat-label>
+      <mat-label>Hasło</mat-label>
       <input
         matInput
         formControlName="password"
-        placeholder="Password"
+        placeholder="Hasło"
         value="Sushi"
       />
     </mat-form-field>
-    <app-button>Sign up</app-button>
+
+    <button
+      mat-raised-button
+      class="w-full"
+      [disabled]="form.invalid"
+      color="primary"
+    >
+      Zarejestruj się
+    </button>
   </div>
 
   <div
     class="text-center text-[16px] 2xl:text-lg text-[#2F2F2F] cursor-pointer"
     routerLink="/auth/login"
   >
-    Back to login
+    Wróć do logowania
   </div>
 </form>

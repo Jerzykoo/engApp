@@ -21,7 +21,7 @@ export class LoginComponent {
   public showPasswordScreen = false;
   public form: UntypedFormGroup = this.fb.group({
     email: [
-      'patryk@gmail.com',
+      'test@gmail.com',
       [Validators.required, Validators.maxLength(256), email],
     ],
     password: ['Test123!', [Validators.required, Validators.maxLength(64)]],
@@ -38,12 +38,8 @@ export class LoginComponent {
   ) {}
 
   public submitForm(): void {
-    // if (this.form.invalid) {
-    //   this.form.markAllAsTouched();
-    //   return;
-    // }
     console.log('login');
-    this.router.navigate(['/admin/users']);
+    this.authService.login(this.form.value);
 
     // this.authService.login(this.form.value).subscribe((val) => {
     //   if (val.roleId === UserRolesEnum.ADMIN) {
@@ -54,5 +50,7 @@ export class LoginComponent {
     //     this.router.navigate(['/user/books']);
     //   }
     // });
+
+    // this.router.navigate(['/admin/users']);
   }
 }
