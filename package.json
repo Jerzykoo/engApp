@@ -32,6 +32,7 @@
     "@ngxs/store": "^3.8.0",
     "ngx-loader-indicator": "^15.0.0",
     "ngxs-reset-plugin": "^3.0.0",
+    "@ngxs/form-plugin": "^3.8.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

@@ -21,7 +21,7 @@ export class LoginComponent {
   public showPasswordScreen = false;
   public form: UntypedFormGroup = this.fb.group({
     email: [
-      'test@gmail.com',
+      'test3@gmail.com',
       [Validators.required, Validators.maxLength(256), email],
     ],
     password: ['Test123!', [Validators.required, Validators.maxLength(64)]],

@@ -35,8 +35,20 @@ export class AuthState {
     private store: Store
   ) {}
 
+  // ngxsOnInit(ctx: StateContext<IAuthState>): void {
+  //   if (this.tokenService.getToken()) {
+  //     ctx.patchState({ splashscreen: true });
+  //     this.authService.fetchProfile().subscribe(
+  //       () => ctx.patchState({ splashscreen: false }),
+  //       () => ctx.patchState({ splashscreen: false }),
+  //     );
+  //   }
+  // }
+
   @Action(SetUser)
   public SetUser(ctx: StateContext<IAuthState>, action: SetUser): void {
+    console.log(action);
+
     ctx.patchState({ user: action.user });
   }
 }

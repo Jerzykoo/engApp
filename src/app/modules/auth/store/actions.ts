@@ -2,7 +2,7 @@ import { IUser } from 'src/app/modules/auth/store/types';
 
 export class SetUser {
   public static readonly type = '[auth] set user';
-  constructor(public user: IUser) {}
+  constructor(public user: any) {}
 }
 
 export class Login {
