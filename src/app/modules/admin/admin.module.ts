@@ -5,16 +5,22 @@ import { UsersComponent } from './pages/users/users.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AdminRouter } from './admin.router';
 import { UserCardComponent } from './pages/users/components/user-card/user-card.component';
-import { EditUserDialogComponent } from './components/edit-user-dialog/edit-user-dialog.component';
-import { AddUserDialogComponent } from './components/add-user-dialog/add-user-dialog.component';
+import { QuizComponent } from './pages/quiz/quiz.component';
+import { ListeningComponent } from './pages/listening/listening.component';
+import { SuccessComponent } from './pages/success/success.component';
+import { RebusComponent } from './pages/rebus/rebus.component';
+import { AchievementsComponent } from './pages/achievements/achievements.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     UsersComponent,
     UserCardComponent,
-    EditUserDialogComponent,
-    AddUserDialogComponent,
+    QuizComponent,
+    ListeningComponent,
+    SuccessComponent,
+    RebusComponent,
+    AchievementsComponent,
   ],
   imports: [CommonModule, SharedModule, AdminRouter],
 })

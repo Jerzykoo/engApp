@@ -14,6 +14,11 @@ export const environment = {
     messagingSenderId: '968924062952',
     appId: '1:968924062952:web:71d5cb25e8bb8c9c73d55d',
   },
+  gameConfig: {
+    secondLevel: 12,
+    thirdLevel: 24,
+    maxLevel: 3,
+  },
 };
 
 /*

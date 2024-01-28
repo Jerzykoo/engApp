@@ -1,34 +1,34 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdminForm } from '../../admin.form';
-import { AuthService } from 'src/app/modules/auth/store/service';
 import { ConstService } from 'src/app/core/services/const.service';
-import { AdminService } from '../../store/service';
-import { Store } from '@ngxs/store';
-import { SetUser } from 'src/app/modules/auth/store/actions';
+import { AuthService } from 'src/app/modules/auth/store/service';
+import { AdminForm } from '../../admin.form';
 import { IUser } from 'src/app/modules/auth/store/types';
+import { AdminService } from '../../store/service';
+import { SetUser } from 'src/app/modules/auth/store/actions';
+import { Store } from '@ngxs/store';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-quiz',
-  templateUrl: './quiz.component.html',
+  selector: 'app-listening',
+  templateUrl: './listening.component.html',
 })
-export class QuizComponent {
-  counter = 1;
+export class ListeningComponent {
+  @ViewChild('audio') audio!: any;
 
+  counter = 1;
+  points: number = 0;
   user!: IUser;
   currentQuestion!: any;
   selectedAnswer!: any;
   correctAnwersNumber = 0;
   questions: any[] = [];
-  points: number = 0;
-
   constructor(
     private router: Router,
     private adminForm: AdminForm,
     private authService: AuthService,
-    private constService: ConstService,
     private adminService: AdminService,
+    private constService: ConstService,
     private store: Store
   ) {}
 
@@ -39,20 +39,16 @@ export class QuizComponent {
       this.user = user;
       this.getQuestionsByLevel(user?.level);
       this.currentQuestion = this.questions[0];
+      this.audio.nativeElement.src = this.currentQuestion.audioSrc;
+      console.log(this.currentQuestion);
     });
   }
 
   getQuestionsByLevel(level: number) {
     if (level === 1) {
-      this.questions = this.constService?.quizFirstLevel;
-    } else if (level === 2) {
-      this.questions = this.constService?.quizSecondLevel;
-    }
-  }
-
-  getQuestionByLevel(level: number) {
-    if (level === 1) {
       this.questions = this.constService?.questionsFirstLevel;
+    } else if (level === 2) {
+      this.questions = this.constService?.questionsSecondLevel;
     }
   }
 
@@ -84,11 +80,11 @@ export class QuizComponent {
     if (this.counter - 1 === this.questions?.length) {
       console.log(this.points);
 
-      if (this.points > this.user?.quizPoints) {
+      if (this.points > this.user?.listenPoints) {
         let isLevelUp = false;
         let user = { ...this.user };
-        user.points = user?.points - user?.quizPoints + this.points;
-        user.quizPoints = this.points;
+        user.points = user?.points - user?.listenPoints + this.points;
+        user.listenPoints = this.points;
         if (user.points === environment.gameConfig.secondLevel) {
           user.level = 2;
           isLevelUp = true;
@@ -113,9 +109,9 @@ export class QuizComponent {
           });
         });
       }
-      this.router.navigate(['/admin/success'], {
-        queryParams: { points: this.points },
-      });
+      this.router.navigate(['/admin/success']);
+    } else {
+      this.audio.nativeElement.src = this.currentQuestion.audioSrc;
     }
   }
 }

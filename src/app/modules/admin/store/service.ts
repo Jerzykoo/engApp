@@ -2,14 +2,15 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpCacheManager } from '@ngneat/cashew';
 import { Store } from '@ngxs/store';
-import { Observable, of } from 'rxjs';
+import { Observable, from, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/core/services/api.service';
-import { IUser } from './types';
-import { ConstsService } from 'src/app/core/services/const.service';
-import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
 
-export const config: any = {
+import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
+import { ConstService } from 'src/app/core/services/const.service';
+import { IUser } from '../../auth/store/types';
+
+export const gameConfig: any = {
   requirements: {
     secondLevel: 40,
     thirdLevel: 80,
@@ -24,7 +25,7 @@ export class AdminService {
     private manager: HttpCacheManager,
     private router: Router,
     private zone: NgZone,
-    private constsService: ConstsService,
+    private constService: ConstService,
     private firestore: Firestore
   ) {}
 
@@ -34,22 +35,23 @@ export class AdminService {
     points: 0,
   };
 
-  public getUsers(name?: string): Observable<IUser[]> {
-    return this.apiService.get(name ? `/api/user/search=${name}` : `/api/user`);
-  }
+  // updateUser(userId: string, updatedUserData: any): Observable<void> {
+  //   const userRef = doc(this.firestore, 'users', userId);
 
-  updateUser(userId: string, updatedUserData: any): Observable<void> {
-    const userRef = doc(this.firestore, 'users', userId);
+  //   return new Observable((observer) => {
+  //     updateDoc(userRef, updatedUserData)
+  //       .then(() => {
+  //         observer.next();
+  //       })
+  //       .catch((error) => {
+  //         observer.error(error);
+  //       });
+  //   });
+  // }
 
-    return new Observable((observer) => {
-      updateDoc(userRef, updatedUserData)
-        .then(() => {
-          observer.next();
-        })
-        .catch((error) => {
-          observer.error(error);
-        });
-    });
+  updateUser(user: any): Observable<void> {
+    const ref = doc(this.firestore, 'users', user.uid);
+    return from(updateDoc(ref, user));
   }
 
   getFirstLevelQuiz() {}

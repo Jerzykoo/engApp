@@ -9,15 +9,6 @@ export enum CopyStatusesEnum {
   Available = 'Dostępna',
 }
 
-export interface IUser {
-  email: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-  roleId: number;
-  userID: number;
-}
-
 export interface IResponseUser {
   userId: number;
   userToken: string;

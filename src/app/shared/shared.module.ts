@@ -12,6 +12,10 @@ import { PublisherCardComponent } from './components/publisher-card/publisher-ca
 import { FooterComponent } from './components/footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconComponent } from './components/icon/icon.component';
+import { QuestionCardComponent } from './components/question-card/question-card.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 // import { NgxLoaderIndicatorModule } from 'ngx-loader-indicator';
 // import { NgxLoaderIndicatorModule } from 'ngx-loader-indicator';
@@ -23,6 +27,7 @@ import { IconComponent } from './components/icon/icon.component';
     PublisherCardComponent,
     FooterComponent,
     IconComponent,
+    QuestionCardComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +35,9 @@ import { IconComponent } from './components/icon/icon.component';
     AppMaterialModule,
     ReactiveFormsModule,
     RouterModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
     PortalModule,
     FontAwesomeModule,
     // NgxLoaderIndicatorModule,
@@ -43,7 +51,9 @@ import { IconComponent } from './components/icon/icon.component';
     NavbarComponent,
     ButtonComponent,
     PopoverComponent,
-
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
     PublisherCardComponent,
     FooterComponent,
     FontAwesomeModule,

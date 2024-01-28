@@ -1,23 +1,33 @@
 <div class="w-full rounded-3xl bg-black pb-16 pt-16 px-16">
   <div
-    class="mb-20 text-white text-center flex flex-col gap-8 items-center justify-center"
+    class="mb-14 text-white text-center flex flex-col gap-10 items-center justify-center"
   >
-    <div class="text-[50px] font-medium">Gratulacje</div>
-
+    <div class="text-[50px] font-medium">
+      {{
+        points >= (maxPoints || 5) / 2
+          ? "Gratuluję dobrego wyniku"
+          : "Dziękuję, że spróbowałeś/aś swoich sił"
+      }}
+    </div>
     <div class="text-[30px] font-medium">
-      Zdobyłeś 20 na 25 punktów możliwych
+      Zdobyłeś/aś {{ points || 0 }} na {{ maxPoints || 5 }} punktów możliwych
+    </div>
+    <div *ngIf="isLevelUp" class="text-[30px] font-medium">
+      Awansujesz na wyzszy level!
     </div>
   </div>
 
-  <div
+  <!-- <div
+    routerLink="/admin/quiz"
     class="flex items-center justify-center p-2.5 mt-16 bg-green-500 text-black text-xl rounded-2xl cursor-pointer w-[200px] mx-auto font-bold"
   >
     Zagraj jeszcze raz
-  </div>
+  </div> -->
 
   <div
-    class="flex items-center justify-center p-2.5 mt-4 bg-white text-black text-xl rounded-2xl cursor-pointer w-[200px] mx-auto font-bold"
+    routerLink="/admin/users"
+    class="flex items-center justify-center p-2.5 mt-4 bg-green-500 text-black text-xl rounded-2xl cursor-pointer w-[200px] mx-auto font-bold"
   >
-    Wróc do gier
+    Powrót do menu
   </div>
 </div>

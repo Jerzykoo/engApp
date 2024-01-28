@@ -1,15 +1,20 @@
-<div class="w-full rounded-3xl bg-black pb-16 pt-16 px-16">
+<div *ngIf="!isLoading" class="w-full rounded-3xl bg-black pb-16 pt-16 px-16">
   <div
     class="mb-12 text-white text-center flex flex-col gap-8 items-center justify-center"
   >
-    <!-- <div class="text-[50px] font-medium" (click)="addDocument()"> -->
-    <div class="text-[50px] font-medium">Level 1 - 95 punktów</div>
-    <div class="text-xl" (click)="updateUser()">
-      Do kolejnego levelu brakuje Ci 5 punktów
+    <div class="text-[50px] font-medium">
+      Level {{ user?.level }}
+      <span *ngIf="maxLevel > user?.level!">- {{ user?.points }} punktów</span>
+    </div>
+    <div *ngIf="maxLevel > user?.level!" class="text-xl" (click)="updateUser()">
+      Do kolejnego levelu brakuje Ci {{ neededPoints }} punktów
     </div>
   </div>
 
-  <div class="h-full grid grid-cols-2 items-center gap-8">
+  <div
+    *ngIf="maxLevel > user?.level!"
+    class="h-full grid grid-cols-2 items-center gap-8"
+  >
     <div
       routerLink="/admin/quiz"
       class="h-[200px] rounded-3xl bg-white text-white uppercase text-[40px] flex items-center justify-center font-medium cursor-pointer"
@@ -24,6 +29,7 @@
       QUIZ
     </div>
     <div
+      routerLink="/admin/listening"
       class="h-[200px] rounded-3xl bg-white text-white uppercase text-[40px] flex items-center justify-center font-medium cursor-pointer"
       style="
         background: linear-gradient(
@@ -36,6 +42,7 @@
       SŁUCHANKA
     </div>
     <div
+      routerLink="/admin/rebus"
       class="h-[200px] rounded-3xl bg-white text-white uppercase text-[40px] flex items-center justify-center font-medium cursor-pointer"
       style="
         background: linear-gradient(
@@ -59,5 +66,12 @@
     >
       WISIELEC
     </div>
+  </div>
+
+  <div
+    *ngIf="!(maxLevel > user?.level!)"
+    class="text-[32px] text-center text-white"
+  >
+    Level 3 w budowie
   </div>
 </div>

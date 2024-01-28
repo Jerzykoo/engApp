@@ -5,11 +5,12 @@ export enum UserRolesEnum {
 
 export interface IUser {
   email: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-  roleId: number;
-  userID: number;
+  level: number;
+  points: number;
+  quizPoints: number;
+  listenPoints: number;
+  rebusPoints: number;
+  uid: string;
 }
 
 export interface IResponseUser {

@@ -1,0 +1,31 @@
+<div class="w-full flex flex-col gap-12 rounded-3xl bg-black pb-16 pt-16 px-16">
+  <div
+    class="text-white text-center flex flex-col gap-8 items-center justify-center"
+  >
+    <div class="text-[24px] font-medium">Odgadnij rebus</div>
+  </div>
+  <!-- <img [src]="question?.imageSrc" class="w-[150px] h-[80px]" alt="" /> -->
+  <div
+    [style.backgroundImage]="'url(' + question?.imageSrc + ')'"
+    class="bg-center rounded-md bg-no-repeat bg-cover w-3/4 h-[200px] mx-auto"
+  ></div>
+  <div [formGroup]="form" class="h-full grid grid-cols-2 items-center gap-16">
+    <mat-form-field class="w-full">
+      <mat-label>Po angielsku</mat-label>
+      <input matInput formControlName="english" placeholder="Po angielsku" />
+    </mat-form-field>
+
+    <mat-form-field class="w-full">
+      <mat-label>Po polsku</mat-label>
+      <input matInput formControlName="polish" placeholder="Po polsku" />
+    </mat-form-field>
+  </div>
+
+  <button
+    [disabled]="form.invalid"
+    (click)="confirmQuestion()"
+    class="flex items-center justify-center disabled:cursor-default disabled:bg-gray-500 p-2.5 bg-white text-black text-xl rounded-2xl cursor-pointer w-[200px] mx-auto font-bold"
+  >
+    Zatwierdź
+  </button>
+</div>

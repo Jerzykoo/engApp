@@ -1,12 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { AdminService } from '../../store/service';
-import { IUser } from '../../store/types';
 import { MatDialog } from '@angular/material/dialog';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { HotToastService } from '@ngneat/hot-toast';
-import { AddUserDialogComponent } from '../../components/add-user-dialog/add-user-dialog.component';
-import { EditUserDialogComponent } from '../../components/edit-user-dialog/edit-user-dialog.component';
 import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
+import { AuthService } from 'src/app/modules/auth/store/service';
+import { IUser } from 'src/app/modules/auth/store/types';
 
 @Component({
   selector: 'app-achievements',
@@ -14,19 +13,27 @@ import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
 })
 export class AchievementsComponent {
   public isLoading = false;
-  public users!: IUser[];
   public email!: any;
   private subscription$: Subscription = new Subscription();
   public formSearch: UntypedFormGroup = this.fb.group({
     search: '',
   });
+  user!: IUser;
 
   constructor(
     private adminService: AdminService,
     public dialog: MatDialog,
     private fb: UntypedFormBuilder,
-    private toast: HotToastService
+    private toast: HotToastService,
+    private authService: AuthService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isLoading = true;
+    this.authService.getUser().subscribe((user) => {
+      console.log(user);
+      this.user = user;
+      this.isLoading = false;
+    });
+  }
 }

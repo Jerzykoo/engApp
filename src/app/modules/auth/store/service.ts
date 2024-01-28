@@ -20,7 +20,7 @@ import { AngularFirestore, DocumentData } from '@angular/fire/compat/firestore';
 import { FirebaseApp, initializeApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import { Firestore, docData, getDoc } from '@angular/fire/firestore';
+import { Firestore, docData, getDoc, updateDoc } from '@angular/fire/firestore';
 import { AuthState } from './state';
 import { HotToastService } from '@ngneat/hot-toast';
 
@@ -42,15 +42,6 @@ export class AuthService {
   // private firebase: FirebaseApp = inject(FirebaseApp);
   public getCurrentUser(token: number): Observable<IUser> {
     return this.apiService.get(`/api/auth/${token}`);
-  }
-
-  public fetchProfile(id: number): Observable<IUser> {
-    return this.apiService.get(`/api/user/${id}`).pipe(
-      tap((data: IUser) => {
-        this.tokenService.saveFullName(data.firstName + ' ' + data.lastName);
-        this.store.dispatch(new SetUser(data));
-      })
-    );
   }
 
   // public login(data: ILogin): Observable<IUser> {
@@ -76,7 +67,7 @@ export class AuthService {
           this.store.dispatch(new SetUser(res));
         });
         // console.log(uid);
-        this.getCurrentUserProfile();
+
         // const userCollectionRef = collection(this.firestore, 'users');
         // let user = {
         //   name: 'John Doe',
@@ -97,21 +88,14 @@ export class AuthService {
   }
 
   getCurrentUserProfile(): Observable<any> {
-    console.log('g');
-    console.log(this.currentUser$);
-
     return this.currentUser$.pipe(
       switchMap((user) => {
-        console.log(user);
+        return !user?.uid ? of(null) : this.getUserById(user?.uid);
+      }),
+      tap((user) => {
+        console.log('here');
 
-        if (!user?.uid) {
-          return of(null);
-        }
-
-        const ref = doc(this.firestore, 'users', user?.uid);
-        console.log(ref);
-
-        return docData(ref) as Observable<any>;
+        this.store.dispatch(new SetUser(user));
       })
     );
   }
@@ -159,15 +143,21 @@ export class AuthService {
         console.log(userCredential);
         // const user = userCredential.user;
         const uid = userCredential.user.uid;
-        let user = {
-          email: userCredential?.user?.email,
+        let user: IUser = {
+          email: userCredential?.user?.email!,
           level: 1,
           points: 0,
+          quizPoints: 0,
+          listenPoints: 0,
+          rebusPoints: 0,
           uid: uid,
         };
         console.log(user);
 
-        this.addUser(user).subscribe();
+        this.addUser(user).subscribe(() => {
+          this.store.dispatch(new SetUser(user));
+          this.router.navigate(['/admin/users']);
+        });
       })
       .catch((error) => {
         this.toast.warning(error?.message);
@@ -180,8 +170,8 @@ export class AuthService {
     return this.apiService.get(`/api/user`);
   }
 
-  getUser() {
-    return this.store.select(AuthState.user);
+  getUser(): Observable<IUser> {
+    return this.store.select(AuthState.user).pipe(filter<any | null>(Boolean));
     // .pipe(filter<any | null>(Boolean), take(1));
   }
 

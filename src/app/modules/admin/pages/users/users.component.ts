@@ -1,84 +1,58 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { AdminService } from '../../store/service';
-import { IUser } from '../../store/types';
 import { MatDialog } from '@angular/material/dialog';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { HotToastService } from '@ngneat/hot-toast';
-import { AddUserDialogComponent } from '../../components/add-user-dialog/add-user-dialog.component';
-import { EditUserDialogComponent } from '../../components/edit-user-dialog/edit-user-dialog.component';
-import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
-import { initializeApp } from '@angular/fire/app';
-import {
-  getFirestore,
-  setDoc,
-  doc,
-  addDoc,
-  collection,
-} from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { Store } from '@ngxs/store';
-import { AuthState } from 'src/app/modules/auth/store/state';
 import { AuthService } from 'src/app/modules/auth/store/service';
+import { SetUser } from 'src/app/modules/auth/store/actions';
+import { IUser } from 'src/app/modules/auth/store/types';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
 })
 export class UsersComponent {
+  gameConfig = environment.gameConfig;
   public isLoading = false;
   public users!: IUser[];
   public email!: any;
-  private subscription$: Subscription = new Subscription();
   public formSearch: UntypedFormGroup = this.fb.group({
     search: '',
   });
-  user!: any;
+  user!: IUser;
+  maxLevel!: number;
   constructor(
     private adminService: AdminService,
     private authService: AuthService,
     public dialog: MatDialog,
     private fb: UntypedFormBuilder,
-    private toast: HotToastService,
     private store: Store
   ) {}
 
   ngOnInit() {
-    // let user = this.store.selectSnapshot(AuthState.user);
+    this.maxLevel = environment.gameConfig.maxLevel;
+    this.isLoading = true;
     this.authService.getUser().subscribe((user) => {
-      // console.log(user);
       this.user = user;
+      this.isLoading = false;
     });
   }
 
-  // let user = {
-  //   email: userCredential?.user?.email,
-  //   level: 1,
-  //   points: 0,
-  //   uid: uid,
-  // };
-
   updateUser() {
     let user = { ...this.user };
-    console.log(user);
-
-    // this.adminService.updateUser(this.user?.uid, this.user)
+    user.level = 1;
+    this.adminService.updateUser(user).subscribe((res: any) => {
+      this.store.dispatch(new SetUser(user));
+    });
   }
 
-  // newDocumentData = {
-  //   name: 'John Doe',
-  //   age: 25,
-  //   city: 'New York',
-  // };
-
-  // addDocument() {
-  //   this.firestore
-  //     .collection('users')
-  //     .add(this.newDocumentData)
-  //     .then((docRef) => {
-  //       console.log('Document added with ID: ', docRef.id);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error adding document: ', error);
-  //     });
-  // }
+  get neededPoints() {
+    if (this?.user?.level === 1) {
+      return this?.gameConfig?.secondLevel - this?.user?.points;
+    } else if (this?.user?.level === 2) {
+      return this?.gameConfig?.thirdLevel - this?.user?.points;
+    }
+    return '';
+  }
 }

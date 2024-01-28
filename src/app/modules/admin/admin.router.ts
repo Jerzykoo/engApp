@@ -8,6 +8,8 @@ import { UsersComponent } from './pages/users/users.component';
 import { AchievementsComponent } from './pages/achievements/achievements.component';
 import { QuizComponent } from './pages/quiz/quiz.component';
 import { SuccessComponent } from './pages/success/success.component';
+import { ListeningComponent } from './pages/listening/listening.component';
+import { RebusComponent } from './pages/rebus/rebus.component';
 
 const routes: Routes = [
   {
@@ -18,6 +20,8 @@ const routes: Routes = [
       { path: 'users', component: UsersComponent },
       { path: 'achievements', component: AchievementsComponent },
       { path: 'quiz', component: QuizComponent },
+      { path: 'listening', component: ListeningComponent },
+      { path: 'rebus', component: RebusComponent },
       { path: 'success', component: SuccessComponent },
       { path: '**', redirectTo: '/admin/users' },
       // { path: '**', redirectTo: '/start' },

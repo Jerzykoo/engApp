@@ -1,12 +1,7 @@
-import { Component, Inject } from '@angular/core';
-import { AdminService } from '../../store/service';
-import { IUser } from '../../store/types';
-import { MatDialog } from '@angular/material/dialog';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { HotToastService } from '@ngneat/hot-toast';
-import { AddUserDialogComponent } from '../../components/add-user-dialog/add-user-dialog.component';
-import { EditUserDialogComponent } from '../../components/edit-user-dialog/edit-user-dialog.component';
-import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Component } from '@angular/core';
+import { AdminForm } from '../../admin.form';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-success',
@@ -14,19 +9,24 @@ import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
 })
 export class SuccessComponent {
   public isLoading = false;
-  public users!: IUser[];
-  public email!: any;
+  points!: number;
+  maxPoints!: number;
+  isLevelUp: any = false;
   private subscription$: Subscription = new Subscription();
-  public formSearch: UntypedFormGroup = this.fb.group({
-    search: '',
-  });
+  constructor(public adminForm: AdminForm, private route: ActivatedRoute) {}
+  ngOnInit() {
+    this.subscription$.add(
+      this.route.queryParams.subscribe((params) => {
+        this.points = params['points'];
+        this.maxPoints = params['maxPoints'];
+        console.log(params['isLevelUp']);
 
-  constructor(
-    private adminService: AdminService,
-    public dialog: MatDialog,
-    private fb: UntypedFormBuilder,
-    private toast: HotToastService
-  ) {}
+        this.isLevelUp = Boolean(Number(params['isLevelUp']));
+      })
+    );
+  }
 
-  ngOnInit() {}
+  ngOnDestroy() {
+    this.subscription$.unsubscribe();
+  }
 }
